@@ -57,39 +57,7 @@ const Navbar = () => {
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showProfileMenu]);
 
-  useEffect(() => {
-    // Initial count
-    if (currentUser) {
-      const count = wishlistManager.getWishlistCount(currentUser.email);
-      setLocalWishlistCount(count);
-    }
 
-    // Subscribe to wishlist updates
-    const unsubscribe = wishlistManager.addListener(() => {
-      if (currentUser) {
-        const count = wishlistManager.getWishlistCount(currentUser.email);
-        setLocalWishlistCount(count);
-      }
-    });
-
-    // Listen for custom events
-    const handleWishlistEvent = () => {
-      refreshWishlistCount();
-    };
-
-    window.addEventListener('wishlist-updated', handleWishlistEvent);
-    window.addEventListener('wishlistChanged', handleWishlistEvent);
-
-    // Make refresh function available globally
-    window.updateNavbarWishlist = refreshWishlistCount;
-
-    return () => {
-      unsubscribe();
-      window.removeEventListener('wishlist-updated', handleWishlistEvent);
-      window.removeEventListener('wishlistChanged', handleWishlistEvent);
-      delete window.updateNavbarWishlist;
-    };
-  }, [currentUser, refreshWishlistCount]);
   
   // Use the maximum of hook count and local count
   const displayWishlistCount = Math.max(wishlistCount, localWishlistCount);
@@ -588,37 +556,7 @@ const Navbar = () => {
                 Please login to access your orders and other personalized features
               </p>
             </div>
-
             <div className="space-y-4">
-              <div className="bg-blue-50 rounded-lg p-4">
-                <div className="flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-blue-600 mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="text-sm text-blue-800">
-                      By logging in, you can:
-                    </p>
-                    <ul className="text-sm text-blue-700 mt-2 space-y-1">
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        View your order history
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        Track your shipments
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        Save items to your wishlist
-                      </li>
-                      <li className="flex items-center gap-2">
-                        <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                        Get personalized recommendations
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <button
                   onClick={handleLoginAndRedirect}

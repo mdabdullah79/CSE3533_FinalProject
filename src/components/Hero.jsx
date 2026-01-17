@@ -68,8 +68,6 @@ const Hero = () => {
               Discover curated collections of jackets, hoodies, and accessories 
               designed for comfort, style, and confidence in every season.
             </p>
-            
-            {/* বাটন একদম আগের মতো রাখলাম */}
             <div className="flex gap-3 sm:gap-4 mb-8 sm:mb-10">
               <Link to="/shop" className="">
                 <button className="group bg-amber-500 hover:bg-amber-600 text-black px-4 sm:px-8 py-2 sm:py-4 rounded-lg font-bold text-base sm:text-lg flex items-center justify-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-amber-500/30 ">
@@ -122,29 +120,6 @@ const Hero = () => {
         >
           <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
         </button>
-
-        {/* Slider Dots */}
-        <div className="absolute bottom-4 sm:bottom-6 left-1/2 transform -translate-x-1/2 flex gap-2 sm:gap-3 z-10">
-          {heroImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => goToSlide(index)}
-              className={`h-2 w-2 sm:h-3 sm:w-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? "bg-amber-400 scale-125" 
-                  : "bg-white/50 hover:bg-white/80"
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="hidden sm:block absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-          <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white/50 rounded-full flex justify-center">
-            <div className="w-1 h-2 sm:h-3 bg-white/70 rounded-full mt-2"></div>
-          </div>
-        </div>
       </section>
     </div>
   );
